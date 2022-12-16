@@ -36,10 +36,25 @@ public class miraiMC implements Listener {
                 if (e.getMessage().startsWith("##")) {
                     ProxiedPlayer player = (ProxiedPlayer) e.getSender();
                     MiraiBot.getBot(plugin.getConfiguration().getLong("mirai.qq")).getGroup(plugin.getConfiguration().getLong("mirai.group"))
-                            .sendMessage("[" + player.getServer().getInfo().getName() + "]" + "[" + e.getSender() + "]: " + e.getMessage().substring(2));
+                            .sendMessage("[" + getServerNickname(player.getServer().getInfo().getName()) + "]" + "[" + e.getSender() + "]: " + e.getMessage().substring(2));
                 }
             }
         });
+    }
 
+    private String getServerNickname(String serverName) {
+        switch (serverName) {
+            case "lobby":
+                return "大厅";
+            case "mcac":
+                return "主服";
+            case "survival":
+                return "生存服";
+            case "island":
+                return "空岛服";
+            case "game":
+                return "小游戏";
+        }
+        return serverName;
     }
 }
