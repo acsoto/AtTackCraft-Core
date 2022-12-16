@@ -9,7 +9,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 public class miraiMC implements Listener {
-    private Attackcraftcore plugin;
+    private final Attackcraftcore plugin;
 
     miraiMC(Attackcraftcore plugin) {
         this.plugin = plugin;
@@ -17,27 +17,21 @@ public class miraiMC implements Listener {
 
     @EventHandler
     public void onGroupMessageReceive(MiraiGroupMessageEvent e) {
-        plugin.getProxy().getScheduler().runAsync(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (e.getMessage().startsWith("##")) {
-                    plugin.getProxy().broadcast(new TextComponent(
-                            "§7[§6§l群消息§7]" + "§7[§e" + e.getSenderName() + "§7]: " + e.getMessage().substring(2)));
-                }
+        plugin.getProxy().getScheduler().runAsync(plugin, () -> {
+            if (e.getMessage().startsWith("##")) {
+                plugin.getProxy().broadcast(new TextComponent(
+                        "§7[§6§l群消息§7]" + "§7[§e" + e.getSenderName() + "§7]: " + e.getMessage().substring(2)));
             }
         });
     }
 
     @EventHandler
     public void onBungeeCordMessageReceive(ChatEvent e) {
-        plugin.getProxy().getScheduler().runAsync(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (e.getMessage().startsWith("##")) {
-                    ProxiedPlayer player = (ProxiedPlayer) e.getSender();
-                    MiraiBot.getBot(plugin.getConfiguration().getLong("mirai.qq")).getGroup(plugin.getConfiguration().getLong("mirai.group"))
-                            .sendMessage("[" + getServerNickname(player.getServer().getInfo().getName()) + "]" + "[" + e.getSender() + "]: " + e.getMessage().substring(2));
-                }
+        plugin.getProxy().getScheduler().runAsync(plugin, () -> {
+            if (e.getMessage().startsWith("##")) {
+                ProxiedPlayer player = (ProxiedPlayer) e.getSender();
+                MiraiBot.getBot(plugin.getConfiguration().getLong("mirai.qq")).getGroup(plugin.getConfiguration().getLong("mirai.group"))
+                        .sendMessage("[" + getServerNickname(player.getServer().getInfo().getName()) + "]" + "[" + e.getSender() + "]: " + e.getMessage().substring(2));
             }
         });
     }
