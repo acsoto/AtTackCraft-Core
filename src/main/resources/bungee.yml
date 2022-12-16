@@ -1,4 +1,4 @@
-name: AtTackCraft-Core
+name: AtTackCraftCore
 version: '${project.version}'
 main: cc.mcac.attackcraftcore.Attackcraftcore
 author: acsoto

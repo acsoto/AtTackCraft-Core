@@ -21,6 +21,11 @@ public final class Attackcraftcore extends Plugin {
         plugin = this;
         loadConfig();
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new Announce());
+        if (getProxy().getPluginManager().getPlugin("MiraiMC") != null) {
+            getProxy().getPluginManager().registerListener(this, new miraiMC(this));
+            getLogger().info("接入 miraiMC");
+            return;
+        }
         new PlayerListLogger(this).run();
         getLogger().info("AtTackCraft-Core 已启动");
         // Plugin startup logic
