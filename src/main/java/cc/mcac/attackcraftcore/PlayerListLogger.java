@@ -21,7 +21,7 @@ public class PlayerListLogger {
         plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
             @Override
             public void run() {
-                plugin.getLogger().info("玩家列表更新");
+//                plugin.getLogger().info("玩家列表更新");
                 try {
                     PreparedStatement ps = connection.prepareStatement(
                             "INSERT INTO `server_player_list` (server_id, player_number, player_list) VALUES (?,?,?) " +
