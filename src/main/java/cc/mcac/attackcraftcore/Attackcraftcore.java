@@ -24,7 +24,6 @@ public final class Attackcraftcore extends Plugin {
         if (getProxy().getPluginManager().getPlugin("MiraiMC") != null) {
             getProxy().getPluginManager().registerListener(this, new miraiMC(this));
             getLogger().info("接入 miraiMC");
-            return;
         }
         new PlayerListLogger(this).run();
         getLogger().info("AtTackCraft-Core 已启动");
@@ -40,7 +39,6 @@ public final class Attackcraftcore extends Plugin {
         try {
             if (!getDataFolder().exists())
                 getDataFolder().mkdir();
-
             File file = new File(getDataFolder(), "config.yml");
 
             if (!file.exists()) {
