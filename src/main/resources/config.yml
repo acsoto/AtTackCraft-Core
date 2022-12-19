@@ -7,3 +7,5 @@ mysql:
 mirai:
   qq: ''
   group: ''
+bukkit:
+  commands_on_enable: []
