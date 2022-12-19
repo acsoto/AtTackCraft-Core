@@ -1,5 +1,6 @@
-package cc.mcac.attackcraftcore;
+package cc.mcac.attackcraftcore.Bungee;
 
+import cc.mcac.attackcraftcore.ACBungee;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -9,9 +10,9 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 public class miraiMC implements Listener {
-    private final Attackcraftcore plugin;
+    private final ACBungee plugin;
 
-    miraiMC(Attackcraftcore plugin) {
+    public miraiMC(ACBungee plugin) {
         this.plugin = plugin;
     }
 

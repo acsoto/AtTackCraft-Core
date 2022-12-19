@@ -7,5 +7,6 @@ mysql:
 mirai:
   qq: ''
   group: ''
+whitelist: false
 bukkit:
   commands_on_enable: []

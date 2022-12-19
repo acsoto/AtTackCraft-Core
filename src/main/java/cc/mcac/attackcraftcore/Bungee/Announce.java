@@ -1,4 +1,4 @@
-package cc.mcac.attackcraftcore;
+package cc.mcac.attackcraftcore.Bungee;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -18,18 +18,16 @@ public class Announce extends Command {
         if (args.length == 0) {
             sender.sendMessage(new TextComponent(ChatColor.DARK_GREEN +
                     "正确用法：/a <消息>"));
-//            sender.sendMessage(new TextComponent(ChatColor.DARK_GREEN+
-//                    "这将消耗你一个喇叭");
         } else {
             TextComponent broadcast;
             if (sender instanceof ProxiedPlayer) {
-                String prefix = "§7[§6跨服§7]§r ";
+                String prefix = "§7[§6跨服§7]" + "§7[§e" + sender.getName() + "§7]: ";
                 broadcast = new TextComponent(
-                        prefix + " §e" + sender + " §7> §r" + sewString(args)
+                        prefix + sewString(args)
                 );
             } else {
                 broadcast = new TextComponent(
-                        "§7[§6Server§7]§r §7> §r" + sewString(args)
+                        "§7[§6Server§7]: " + sewString(args)
                 );
             }
             ProxyServer.getInstance().broadcast(broadcast);
