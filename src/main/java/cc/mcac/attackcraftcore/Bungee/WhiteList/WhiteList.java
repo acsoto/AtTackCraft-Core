@@ -1,4 +1,4 @@
-package cc.mcac.attackcraftcore.Bungee;
+package cc.mcac.attackcraftcore.Bungee.WhiteList;
 
 import cc.mcac.attackcraftcore.ACBungee;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -19,32 +19,61 @@ public class WhiteList implements Listener {
     public WhiteList(ACBungee plugin) {
         this.plugin = plugin;
         whiteList = new HashSet<>();
-        loadWhitelist();
+        if (plugin.getConfiguration().getBoolean("whiteList")) {
+            on();
+        } else {
+            off();
+        }
     }
 
     @EventHandler
     public void onPlayerJoin(PreLoginEvent e) {
         if (plugin.getConfiguration().getBoolean("whitelist")) {
-            if (!whiteList.contains(e.getConnection().getName())) {
+            if (!whiteList.contains(e.getConnection().getName().toLowerCase())) {
                 e.setCancelReason(new TextComponent("§c您不在白名单中, 请在群14603699申请白名单"));
                 e.setCancelled(true);
+                plugin.getLogger().info("玩家" + e.getConnection().getName() + "不在白名单中, 断开连接");
             }
         }
     }
 
-    private void loadWhitelist() {
+    public void on() {
         Connection connection = plugin.getSqlManager().getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "SELECT * FROM `whitelist`"
             );
             ResultSet rs = ps.executeQuery();
+            whiteList.clear();
             while (rs.next()) {
                 whiteList.add(rs.getString("player_name"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void off() {
+        whiteList.clear();
+    }
+
+    public void addPlayer(String playerName) {
+        whiteList.add(playerName);
+        Connection connection = plugin.getSqlManager().getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO `whitelist` (`player_name`) VALUES (?)"
+            );
+            ps.setString(1, playerName);
+            ps.executeUpdate();
+            whiteList.add(playerName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return whiteList.toString();
     }
 }

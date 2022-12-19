@@ -2,7 +2,8 @@ package cc.mcac.attackcraftcore;
 
 import cc.mcac.attackcraftcore.Bungee.Announce;
 import cc.mcac.attackcraftcore.Bungee.PlayerListLogger;
-import cc.mcac.attackcraftcore.Bungee.WhiteList;
+import cc.mcac.attackcraftcore.Bungee.WhiteList.WhiteList;
+import cc.mcac.attackcraftcore.Bungee.WhiteList.WhitelistCommand;
 import cc.mcac.attackcraftcore.Bungee.miraiMC;
 import cc.mcac.attackcraftcore.SQL.SQLManager;
 import net.md_5.bungee.api.ProxyServer;
@@ -33,7 +34,7 @@ public class ACBungee extends Plugin {
             getLogger().info("接入 miraiMC");
         }
         new PlayerListLogger(this).run();
-        registerListener();
+        loadWhitelist();
         getLogger().info("AtTackCraft-Core 已启动");
         // Plugin startup logic
     }
@@ -87,7 +88,17 @@ public class ACBungee extends Plugin {
         return sqlManager;
     }
 
-    private void registerListener() {
-        getProxy().getPluginManager().registerListener(this, new WhiteList(this));
+    private void loadWhitelist() {
+        WhiteList whiteList = new WhiteList(this);
+        getProxy().getPluginManager().registerListener(this, whiteList);
+        getProxy().getPluginManager().registerCommand(this, new WhitelistCommand(this, whiteList));
+    }
+
+    public void saveConfig() {
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, new File(getDataFolder(), "config.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
