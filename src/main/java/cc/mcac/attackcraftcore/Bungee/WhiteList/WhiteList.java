@@ -62,9 +62,10 @@ public class WhiteList implements Listener {
         Connection connection = plugin.getSqlManager().getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO `whitelist` (`player_name`) VALUES (?)"
+                    "INSERT INTO `whitelist` (`player_name`) VALUES (?) ON DUPLICATE KEY UPDATE `player_name` = ?"
             );
             ps.setString(1, playerName);
+            ps.setString(2, playerName);
             ps.executeUpdate();
             whiteList.add(playerName);
         } catch (Exception e) {
