@@ -13,6 +13,7 @@ public class TaoYuanProtection implements Listener {
             if (e.getPlayer().hasPermission("multiverse.access.sc")) {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + e.getPlayer().getName() + " permission unset multiverse.access.sc");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + e.getPlayer().getName() + " parent add taoyuan");
+                return;
             }
             if (e.getPlayer().hasPermission("mcac.taoyuan")) {
                 return;
