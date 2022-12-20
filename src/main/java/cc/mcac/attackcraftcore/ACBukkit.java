@@ -1,5 +1,7 @@
 package cc.mcac.attackcraftcore;
 
+import cc.mcac.attackcraftcore.Bukkit.TaoYuanProtection;
+import cc.mcac.attackcraftcore.Bukkit.WorldProtection;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +14,7 @@ public class ACBukkit extends JavaPlugin {
         saveDefaultConfig();
         loadPlaceholderAPI();
         loadCommandsOnEnable();
+        loadWorldProtection();
         getLogger().info("启动成功");
     }
 
@@ -35,5 +38,18 @@ public class ACBukkit extends JavaPlugin {
             getLogger().info("执行指令: " + command);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
         }
+    }
+
+    private void loadWorldProtection() {
+        if (getConfig().getString("server_id").equals("mcac")) {
+            getLogger().info("当前服务器为mcac, 已启用桃源保护");
+            Bukkit.getPluginManager().registerEvents(new TaoYuanProtection(), this);
+        }
+        List<String> worldList = getConfig().getStringList("bukkit.world_protection");
+        if (worldList.isEmpty()) {
+            return;
+        }
+        getLogger().info("已启用世界保护: " + worldList);
+        Bukkit.getPluginManager().registerEvents(new WorldProtection(worldList), this);
     }
 }

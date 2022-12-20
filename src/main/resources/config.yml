@@ -10,3 +10,4 @@ mirai:
 whitelist: false
 bukkit:
   commands_on_enable: []
+  world_protection: []
