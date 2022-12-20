@@ -9,8 +9,12 @@ import java.util.List;
 
 public class ACBukkit extends JavaPlugin {
 
+    public static ACBukkit plugin = null;
+
+
     @Override
     public void onEnable() {
+        plugin = this;
         saveDefaultConfig();
         loadPlaceholderAPI();
         loadCommandsOnEnable();
