@@ -1,7 +1,5 @@
 # AtTackCraft-Core
 
-## for AtTackCraft
-
 ### Bungee
 
 - [x] announce across servers
