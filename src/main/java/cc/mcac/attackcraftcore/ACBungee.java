@@ -34,7 +34,9 @@ public class ACBungee extends Plugin {
             getProxy().getPluginManager().registerListener(this, new miraiMC(this));
             getLogger().info("接入 miraiMC");
         }
-        new PlayerListLogger(this).run();
+        if (getConfiguration().getBoolean("playerlistlogger")) {
+            new PlayerListLogger(this).run();
+        }
         loadWhitelist();
         setUpBStats();
         getLogger().info("AtTackCraft-Core 已启动");
@@ -104,7 +106,7 @@ public class ACBungee extends Plugin {
         }
     }
 
-    private void setUpBStats(){
+    private void setUpBStats() {
         int pluginId = 17320;
         Metrics metrics = new Metrics(this, pluginId);
     }

@@ -8,6 +8,7 @@ mirai:
   qq: ''
   group: ''
 whitelist: false
+playerlistlogger: false
 bukkit:
   commands_on_enable: []
   world_protection: []
