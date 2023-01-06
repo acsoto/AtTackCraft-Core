@@ -11,6 +11,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class ACBungee extends Plugin {
         }
         new PlayerListLogger(this).run();
         loadWhitelist();
+        setUpBStats();
         getLogger().info("AtTackCraft-Core 已启动");
         // Plugin startup logic
     }
@@ -100,5 +102,10 @@ public class ACBungee extends Plugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setUpBStats(){
+        int pluginId = 17320;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 }
