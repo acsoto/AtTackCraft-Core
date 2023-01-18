@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashSet;
 
+import static net.md_5.bungee.event.EventPriority.HIGHEST;
+
 public class WhiteList implements Listener {
 
     private final ACBungee plugin;
@@ -26,10 +28,10 @@ public class WhiteList implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = HIGHEST)
     public void onPlayerJoin(PreLoginEvent e) {
         if (plugin.getConfiguration().getBoolean("whitelist")) {
-            if (!whiteList.contains(e.getConnection().getName().toLowerCase())) {
+            if (!whiteList.contains(e.getConnection().getName())) {
                 e.setCancelReason(new TextComponent("§c您不在白名单中, 请在群14603699申请白名单"));
                 e.setCancelled(true);
                 plugin.getLogger().info("玩家" + e.getConnection().getName() + "不在白名单中, 断开连接");
