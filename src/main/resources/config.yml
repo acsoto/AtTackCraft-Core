@@ -9,6 +9,7 @@ mirai:
   group: ''
 whitelist: false
 playerlistlogger: false
+broadcast: []
 bukkit:
   commands_on_enable: []
   world_protection: []

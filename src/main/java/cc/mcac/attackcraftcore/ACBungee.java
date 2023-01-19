@@ -1,6 +1,7 @@
 package cc.mcac.attackcraftcore;
 
 import cc.mcac.attackcraftcore.Bungee.Announce;
+import cc.mcac.attackcraftcore.Bungee.Broadcast;
 import cc.mcac.attackcraftcore.Bungee.PlayerListLogger;
 import cc.mcac.attackcraftcore.Bungee.WhiteList.WhiteList;
 import cc.mcac.attackcraftcore.Bungee.WhiteList.WhitelistCommand;
@@ -41,6 +42,7 @@ public class ACBungee extends Plugin {
         }
         loadWhitelist();
         setUpBStats();
+        new Broadcast(this).run();
         getLogger().info("AtTackCraft-Core 已启动");
         // Plugin startup logic
     }
