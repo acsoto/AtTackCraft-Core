@@ -32,6 +32,7 @@ public class ACBungee extends Plugin {
         plugin = this;
         loadConfig();
         setupSQL();
+        loadWhitelist();
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new Announce());
         if (getProxy().getPluginManager().getPlugin("MiraiMC") != null) {
             getProxy().getPluginManager().registerListener(this, new miraiMC(this, whiteList));
@@ -40,7 +41,6 @@ public class ACBungee extends Plugin {
         if (getConfiguration().getBoolean("playerlistlogger")) {
             new PlayerListLogger(this).run();
         }
-        loadWhitelist();
         setUpBStats();
         new Broadcast(this).run();
         getLogger().info("AtTackCraft-Core 已启动");
