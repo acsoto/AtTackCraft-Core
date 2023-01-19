@@ -1,4 +1,11 @@
-# AtTackCraft-Core
+<div align="center">
+
+<h1>AtTackCraft-Core</h1>
+
+<blockquote>AtTackCraft Plugin</blockquote>
+
+</div>
+
 
 ### Bungee
 
@@ -15,3 +22,7 @@
 - [x] commands on enable
 - [x] 桃源 protection
 - [x] world protection
+
+### bStats
+
+<img src="https://bstats.org/signatures/bungeecord/AtTackCraft-Core.svg" alt="">
