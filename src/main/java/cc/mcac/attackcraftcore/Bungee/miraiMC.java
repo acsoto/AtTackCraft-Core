@@ -1,6 +1,7 @@
 package cc.mcac.attackcraftcore.Bungee;
 
 import cc.mcac.attackcraftcore.ACBungee;
+import cc.mcac.attackcraftcore.Bungee.WhiteList.WhiteList;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,8 +14,11 @@ import net.md_5.bungee.event.EventHandler;
 public class miraiMC implements Listener {
     private final ACBungee plugin;
 
-    public miraiMC(ACBungee plugin) {
+    private final WhiteList whiteList;
+
+    public miraiMC(ACBungee plugin, WhiteList whiteList) {
         this.plugin = plugin;
+        this.whiteList = whiteList;
     }
 
     @EventHandler
@@ -35,6 +39,11 @@ public class miraiMC implements Listener {
                 });
                 MiraiBot.getBot(plugin.getConfiguration().getLong("mirai.qq")).getGroup(plugin.getConfiguration().getLong("mirai.group"))
                         .sendMessage(playerListMsg.toString());
+            } else if (e.getMessage().startsWith("#申请白名单 ")) {
+                String playerName = e.getMessage().split(" ")[1];
+                whiteList.addPlayer(playerName);
+                MiraiBot.getBot(plugin.getConfiguration().getLong("mirai.qq")).getGroup(plugin.getConfiguration().getLong("mirai.group"))
+                        .sendMessage(String.format("已将%s加入白名单", playerName));
             }
         });
     }

@@ -24,6 +24,8 @@ public class ACBungee extends Plugin {
     private Configuration configuration;
     private SQLManager sqlManager;
 
+    private WhiteList whiteList;
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -31,7 +33,7 @@ public class ACBungee extends Plugin {
         setupSQL();
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new Announce());
         if (getProxy().getPluginManager().getPlugin("MiraiMC") != null) {
-            getProxy().getPluginManager().registerListener(this, new miraiMC(this));
+            getProxy().getPluginManager().registerListener(this, new miraiMC(this, whiteList));
             getLogger().info("接入 miraiMC");
         }
         if (getConfiguration().getBoolean("playerlistlogger")) {
@@ -93,7 +95,7 @@ public class ACBungee extends Plugin {
     }
 
     private void loadWhitelist() {
-        WhiteList whiteList = new WhiteList(this);
+        whiteList = new WhiteList(this);
         getProxy().getPluginManager().registerListener(this, whiteList);
         getProxy().getPluginManager().registerCommand(this, new WhitelistCommand(this, whiteList));
     }
