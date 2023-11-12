@@ -19,7 +19,11 @@ public class Broadcast {
     }
 
     public void run() {
-        plugin.getLogger().info("Broadcast 已启动");
+        if (broadcastList.isEmpty()){
+            plugin.getLogger().info("Broadcast list is emplty.");
+            return;
+        }
+        plugin.getLogger().info("Broadcast starts.");
         plugin.getProxy().getScheduler().schedule(plugin, () -> {
             int index = (int) (Math.random() * broadcastList.size());
             ProxyServer.getInstance().broadcast(new TextComponent("§7[§6§l公告§7] §e" + broadcastList.get(index)));
